@@ -10,7 +10,7 @@
     "seed:admin": "node src/seeds/adminSeeder.js",
     "seed:users": "node src/seeds/userSeeder.js",
     "docker:build": "docker build -t yadhavar-matrimony .",
-    "docker:run": "docker run -p 5000:5000 --env-file .env yadhavar-matrimony",
+    "docker:run": "docker run -p : --env-file .env yadhavar-matrimony",
     "docker:dev": "docker-compose up",
     "docker:stop": "docker-compose down",
     "docker:logs": "docker-compose logs -f",

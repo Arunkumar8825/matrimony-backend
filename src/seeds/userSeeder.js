@@ -37,7 +37,7 @@ const sampleUsers = [
     gotra: 'Vasishtha',
     education: 'Doctor',
     profession: 'Pediatrician',
-    annualIncome: 1500000,
+    annualIncome: 100,
     currentCity: 'Chennai',
     currentState: 'Tamil Nadu',
     nativePlace: 'Coimbatore',
