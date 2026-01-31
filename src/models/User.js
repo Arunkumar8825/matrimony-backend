@@ -67,28 +67,28 @@ const userSchema = new mongoose.Schema({
   subCommunity: {
     type: String,
     enum: ['Golla', 'Kuruba', 'Gowda', 'Yadava', 'Other'],
-    required: true
+    required: false
   },
   gotra: {
     type: String,
-    required: true
+    required: false
   },
   nativePlace: {
     type: String,
-    required: true
+    required: false
   },
   
   // Professional Details
   education: {
     type: String,
-    required: true
+    required: false
   },
   university: {
     type: String
   },
   profession: {
     type: String,
-    required: true
+    required: false
   },
   company: {
     type: String
@@ -101,14 +101,14 @@ const userSchema = new mongoose.Schema({
   // Family Details
   fatherName: {
     type: String,
-    required: true
+    required: false
   },
   fatherOccupation: {
     type: String
   },
   motherName: {
     type: String,
-    required: true
+    required: false
   },
   motherOccupation: {
     type: String
@@ -128,11 +128,11 @@ const userSchema = new mongoose.Schema({
   // Location
   currentCity: {
     type: String,
-    required: true
+    required: false
   },
   currentState: {
     type: String,
-    required: true
+    required: false
   },
   currentCountry: {
     type: String,
