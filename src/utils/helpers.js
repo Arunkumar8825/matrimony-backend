@@ -75,7 +75,6 @@ exports.paginate = (model, query, page = 1, limit = 10, populate = '') => {
   const skip = (page - 1) * limit;
   
   return model.find(query)
-    .populate(populate)
     .skip(skip)
     .limit(limit);
 };

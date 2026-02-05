@@ -78,7 +78,7 @@ exports.getUserById = async (req, res) => {
   try {
     const user = await User.findById(req.params.id)
       .select('-password')
-      .populate('profile');
+      
 
     if (!user) {
       return res.status(404).json({
@@ -234,8 +234,7 @@ exports.getUserDashboard = async (req, res) => {
     // Get user with profile
     const user = await User.findById(userId)
       .select('-password')
-      .populate('profile');
-
+     
     // Get counts
     const interestsReceived = await Interest.countDocuments({ 
       toUser: userId, 

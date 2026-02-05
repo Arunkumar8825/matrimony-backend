@@ -10,7 +10,7 @@ exports.getProfile = async (req, res) => {
     
     const user = await User.findById(userId)
       .select('-password')
-      .populate('profile');
+     
 
     if (!user) {
       return res.status(404).json({
