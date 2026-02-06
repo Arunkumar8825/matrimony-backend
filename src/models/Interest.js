@@ -22,7 +22,7 @@ const interestSchema = new mongoose.Schema({
   },
   status: {
     type: String,
-    enum: ['Pending', 'Accepted', 'Rejected', 'Withdrawn'],
+    enum: ['Pending', 'accepted', 'Rejected', 'Withdrawn'],
     default: 'Pending'
   },
   isRead: {

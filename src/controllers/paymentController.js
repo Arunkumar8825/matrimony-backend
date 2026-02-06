@@ -34,67 +34,60 @@ exports.getPlans = async (req, res) => {
 // @access  Private
 exports.createOrder = async (req, res) => {
   try {
+    console.log("BODY 👉", req.body);
+    console.log("USER 👉", req.user);
+
     const { plan, duration } = req.body;
 
     if (!plan || !duration) {
       return res.status(400).json({
         success: false,
-        error: 'Please provide plan and duration'
+        error: "Please provide plan and duration"
       });
     }
 
-    const planConfig = SUBSCRIPTION_PLANS[plan.toUpperCase()];
+    const planConfig = Object.values(SUBSCRIPTION_PLANS).find(
+      p => p.name === plan && p.duration === Number(duration)
+    );
+
+    console.log("PLAN CONFIG 👉", planConfig);
+
     if (!planConfig) {
       return res.status(400).json({
         success: false,
-        error: 'Invalid plan selected'
+        error: "Invalid plan or duration"
       });
     }
 
-    // Calculate amount based on duration
-    const amount = planConfig.price * duration;
+    const amount = planConfig.price;
 
-    // Create Razorpay order
-    const options = {
-      amount: amount * 100, // Convert to paise
-      currency: 'INR',
-      receipt: `receipt_${Date.now()}`,
-      notes: {
-        userId: req.user.id,
-        plan: plan,
-        duration: duration,
-        features: JSON.stringify(planConfig.features)
-      }
-    };
+    console.log("AMOUNT 👉", amount);
 
-    const order = await razorpay.orders.create(options);
-
-    // Save payment record
-    const payment = await Payment.create({
-      user: req.user.id,
-      razorpayOrderId: order.id,
-      amount: amount,
-      plan: plan,
-      duration: duration,
-      features: planConfig.features
+    const order = await razorpay.orders.create({
+      amount: amount * 100,
+      currency: "INR",
+      receipt: `receipt_${Date.now()}`
     });
 
     res.status(200).json({
       success: true,
-      data: {
-        orderId: order.id,
-        amount: order.amount,
-        currency: order.currency,
-        paymentId: payment._id
-      }
+      data: order
     });
-  } catch (err) {
-    res.status(500).json({
-      success: false,
-      error: err.message
-    });
-  }
+
+  } 
+  catch (error) {
+  console.error("CREATE ORDER FULL ERROR 👉", error);
+  console.error("ERROR TYPE 👉", typeof error);
+  console.error("ERROR KEYS 👉", Object.keys(error || {}));
+
+  res.status(500).json({
+    success: false,
+    error: error?.description || error?.message || "Create order failed"
+  });
+}
+
 };
+
 
 // @desc    Verify payment
 // @route   POST /api/payments/verify

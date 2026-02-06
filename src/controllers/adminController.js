@@ -164,9 +164,9 @@ exports.getUserDetails = async (req, res) => {
   try {
     const user = await User.findById(req.params.userId)
       .select('-password -tokens')
-      .populate('interestsSent', 'fromUser toUser status')
-      .populate('interestsReceived', 'fromUser toUser status')
-      .populate('premiumPlan', 'name amount duration');
+      // .populate('interestsSent', 'fromUser toUser status')
+      // .populate('interestsReceived', 'fromUser toUser status')
+      // .populate('premiumPlan', 'name amount duration');
 
     if (!user) {
       return res.status(404).json({
@@ -200,7 +200,7 @@ exports.getUserDetails = async (req, res) => {
   } catch (error) {
     res.status(500).json({
       success: false,
-      error: 'Server Error'
+      error: error.message
     });
   }
 };
