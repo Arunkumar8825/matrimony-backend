@@ -22,3 +22,6 @@ router.put('/update-password', protect, updatePassword);
 router.post('/verify-email', protect, verifyEmail);
 
 module.exports = router;
+
+
+
